@@ -1,0 +1,13 @@
+/
+  Link: <https://edesigr.com/>; rel="canonical"
+
+/index.html
+  X-Robots-Tag: noindex
+
+/sitemap-index.xml
+  Content-Type: application/xml; charset=utf-8
+/sitemap-0.xml
+  Content-Type: application/xml; charset=utf-8
+
+/favicon.svg
+  Content-Type: image/svg+xml

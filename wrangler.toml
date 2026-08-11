@@ -1,4 +1,5 @@
 name = "edesigrcomv1"
+main = "worker.ts"
 compatibility_date = "2026-06-08"
 workers_dev = false
 preview_urls = false

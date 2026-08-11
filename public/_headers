@@ -1,5 +1,9 @@
 /
   Link: <https://edesigr.com/>; rel="canonical"
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
 
 /index.html
   X-Robots-Tag: noindex

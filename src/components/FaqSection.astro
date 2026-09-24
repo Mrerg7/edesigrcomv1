@@ -1,45 +1,30 @@
-<section class="max-w-3xl mx-auto px-6 pb-20">
-  <h3 class="font-display text-3xl tracking-tight text-center mb-8">Common questions</h3>
+---
+import { FAQS } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<section id="faq" class="max-w-3xl mx-auto px-5 sm:px-6 pb-16 sm:pb-20">
+  <div class="text-center mb-8">
+    <p class="inline-block px-4 py-1 rounded-2xl bg-white/5 text-xs font-semibold tracking-[2px] mb-3">BUYER FAQ</p>
+    <h2 class="font-display section-title text-white">Common questions</h2>
+  </div>
 
   <div class="space-y-3">
-    <div class="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
-      <button class="w-full flex items-center justify-between px-7 py-5 text-left font-medium hover:text-white transition-colors" onclick="const a=this.nextElementSibling;a.classList.toggle('hidden');this.querySelector('i').classList.toggle('fa-rotate-180');this.classList.toggle('text-white')">
-        <span>Is the price negotiable?</span>
-        <i class="fa-solid fa-chevron-down transition-transform"></i>
-      </button>
-      <div class="hidden px-7 pb-6 text-zinc-400 text-[15px]">
-        The listed price of $195,000 reflects the domain&rsquo;s premium .com positioning, instant brand relevance, strong market timing in the AI creative space, and the added value of the world&rsquo;s most trusted extension. Reasonable offers from serious, qualified buyers will be considered.
-      </div>
-    </div>
-
-    <div class="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
-      <button class="w-full flex items-center justify-between px-7 py-5 text-left font-medium hover:text-white transition-colors" onclick="const a=this.nextElementSibling;a.classList.toggle('hidden');this.querySelector('i').classList.toggle('fa-rotate-180');this.classList.toggle('text-white')">
-        <span>How does the transfer process work?</span>
-        <i class="fa-solid fa-chevron-down transition-transform"></i>
-      </button>
-      <div class="hidden px-7 pb-6 text-zinc-400 text-[15px]">
-        We use reputable escrow services (Escrow.com or Dan.com recommended). You pay into escrow, we initiate the domain transfer via the registrar, and funds are released only after successful transfer and confirmation. Full guidance provided.
-      </div>
-    </div>
-
-    <div class="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
-      <button class="w-full flex items-center justify-between px-7 py-5 text-left font-medium hover:text-white transition-colors" onclick="const a=this.nextElementSibling;a.classList.toggle('hidden');this.querySelector('i').classList.toggle('fa-rotate-180');this.classList.toggle('text-white')">
-        <span>Why .com instead of a newer TLD?</span>
-        <i class="fa-solid fa-chevron-down transition-transform"></i>
-      </button>
-      <div class="hidden px-7 pb-6 text-zinc-400 text-[15px]">
-        .com remains the gold standard for trust, professionalism, email infrastructure, and global recognition. While newer TLDs offer creative energy, edesigr.com delivers timeless brand equity and maximum credibility with clients, investors, and partners.
-      </div>
-    </div>
-
-    <div class="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
-      <button class="w-full flex items-center justify-between px-7 py-5 text-left font-medium hover:text-white transition-colors" onclick="const a=this.nextElementSibling;a.classList.toggle('hidden');this.querySelector('i').classList.toggle('fa-rotate-180');this.classList.toggle('text-white')">
-        <span>Can I use this for my personal brand or portfolio?</span>
-        <i class="fa-solid fa-chevron-down transition-transform"></i>
-      </button>
-      <div class="hidden px-7 pb-6 text-zinc-400 text-[15px]">
-        Absolutely. Many successful artists, designers, and creative technologists use premium .com domains for personal brands, portfolios, and side projects. edesigr.com gives you instant credibility and a memorable, professional home for your work.
-      </div>
-    </div>
+    {
+      FAQS.map((f, i) => (
+        <details class="faq-item bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden" open={i === 0}>
+          <summary class="flex items-center justify-between gap-4 px-5 sm:px-7 py-4 sm:py-5 text-left text-[15px] sm:text-base font-medium text-zinc-300 hover:text-white transition-colors">
+            <span>{f.q}</span>
+            <Icon name="chevron-down" class="faq-chevron w-4 h-4 shrink-0 text-zinc-500 transition-transform duration-200" />
+          </summary>
+          <div class="px-5 sm:px-7 pb-5 sm:pb-6 -mt-1 text-zinc-400 text-[15px] leading-relaxed">{f.a}</div>
+        </details>
+      ))
+    }
   </div>
+
+  <p class="text-center text-sm text-zinc-500 mt-6">
+    Still have questions?
+    <a href="mailto:sales@desertrich.com?subject=Question%20about%20edesigr.com" class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 py-1.5">Ask the owner directly</a>.
+  </p>
 </section>

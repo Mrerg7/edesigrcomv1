@@ -1,0 +1,45 @@
+---
+import { ACQUISITION_MAILTO, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+---
+
+<div
+  class="sm:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-zinc-950/95 backdrop-blur-lg px-4 py-3"
+  style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));"
+  id="sticky-cta"
+>
+  <div class="flex items-center gap-3">
+    <div class="min-w-0 shrink">
+      <div class="text-[10px] uppercase tracking-[1.5px] text-emerald-400 font-bold leading-tight">For sale</div>
+      <div class="text-white font-semibold text-sm leading-tight truncate">${PRICE} USD</div>
+    </div>
+    <a
+      href={ACQUISITION_MAILTO}
+      class="ml-auto inline-flex items-center justify-center gap-x-2 h-11 px-5 rounded-2xl bg-white text-zinc-950 text-sm font-semibold shrink-0"
+    >
+      <Icon name="envelope" class="w-4 h-4" />
+      <span>Make an offer</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  const bar = document.getElementById('sticky-cta');
+  const acquire = document.getElementById('acquire');
+  if (bar) {
+    const hideNear = () => {
+      if (!acquire) return;
+      const rect = acquire.getBoundingClientRect();
+      bar.classList.toggle('opacity-0', rect.top < window.innerHeight - 40);
+      bar.classList.toggle('pointer-events-none', rect.top < window.innerHeight - 40);
+    };
+    window.addEventListener('scroll', hideNear, { passive: true });
+    hideNear();
+  }
+</script>
+
+<style>
+  #sticky-cta {
+    transition: opacity 0.2s ease;
+  }
+</style>

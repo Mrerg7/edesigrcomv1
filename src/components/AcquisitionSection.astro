@@ -1,69 +1,207 @@
 ---
-import { ACQUISITION_MAILTO, SITE } from '../config/site';
+import { ACQUISITION_MAILTO, SITE, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+
+const guarantees = [
+  {
+    icon: 'handshake',
+    title: 'Escrow-protected transfer',
+    body: 'Handled via Escrow.com or Dan.com. Your funds are released only after the domain is in your account.',
+  },
+  {
+    icon: 'clock',
+    title: 'Fast &amp; private',
+    body: 'Typical closing in 3–10 business days. Discreet transaction available for qualified buyers.',
+  },
+  {
+    icon: 'banknote',
+    title: 'Flexible structures',
+    body: 'Installment plans and broker-assisted closings available for qualified buyers.',
+  },
+];
 ---
 
-<section id="acquire" class="max-w-4xl mx-auto px-6 pb-20">
+<section id="acquire" class="max-w-4xl mx-auto px-5 sm:px-6 pb-16 sm:pb-20">
   <div class="bg-zinc-900 border border-white/10 rounded-3xl overflow-hidden">
-    <div class="px-8 md:px-12 pt-10 pb-8">
+    <div class="px-6 sm:px-8 md:px-12 pt-8 sm:pt-10 pb-7 sm:pb-8">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4">
         <div>
-          <div class="text-xs font-bold tracking-[2px] text-emerald-400 mb-1.5">PREMIUM .COM ACQUISITION</div>
-          <div class="font-display text-6xl md:text-7xl tracking-[-3.5px] font-bold">$195,000</div>
-          <div class="text-zinc-400 mt-1">USD • One-time acquisition</div>
+          <p class="text-xs font-bold tracking-[2px] text-emerald-400 mb-2">PREMIUM .COM ACQUISITION</p>
+          <div class="font-display price-display font-bold text-white">${PRICE}</div>
+          <div class="text-zinc-400 mt-2 text-sm sm:text-base">USD &bull; One-time acquisition &bull; Escrow protected</div>
         </div>
 
         <div class="md:text-right">
-          <div class="inline-flex items-center gap-x-2 text-sm bg-emerald-400/10 text-emerald-400 px-4 h-9 rounded-2xl font-medium">
-            <i class="fa-solid fa-shield-halved"></i>
-            <span>Escrow protected</span>
-          </div>
+          <span class="inline-flex items-center gap-x-2 text-sm bg-emerald-400/10 text-emerald-400 px-4 h-9 rounded-2xl font-medium">
+            <Icon name="shield-halved" class="w-4 h-4" />
+            <span>Buyer protection included</span>
+          </span>
         </div>
       </div>
     </div>
 
-    <div class="border-t border-white/10 px-8 md:px-12 py-8 bg-zinc-950/70">
-      <div class="grid md:grid-cols-3 gap-6 text-sm">
-        <div>
-          <div class="font-semibold mb-1.5 flex items-center gap-x-2">
-            <i class="fa-solid fa-handshake text-emerald-400"></i>
-            <span>Secure Transfer</span>
-          </div>
-          <div class="text-zinc-400">Handled via Escrow.com, Dan.com, or your preferred provider. Full support throughout the process.</div>
-        </div>
-        <div>
-          <div class="font-semibold mb-1.5 flex items-center gap-x-2">
-            <i class="fa-solid fa-clock text-emerald-400"></i>
-            <span>Fast &amp; Private</span>
-          </div>
-          <div class="text-zinc-400">Typical closing in 3–10 business days. Discreet transaction available for qualified buyers.</div>
-        </div>
-        <div>
-          <div class="font-semibold mb-1.5 flex items-center gap-x-2">
-            <i class="fa-solid fa-chart-line text-emerald-400"></i>
-            <span>Investment Grade</span>
-          </div>
-          <div class="text-zinc-400">Strong semantic value + explosive category growth + .com equity = exceptional long-term digital asset.</div>
-        </div>
-      </div>
+    <div class="border-t border-white/10 px-6 sm:px-8 md:px-12 py-7 sm:py-8 bg-zinc-950/70">
+      <ul class="grid sm:grid-cols-3 gap-5 text-sm">
+        {
+          guarantees.map((g) => (
+            <li>
+              <div class="font-semibold mb-1.5 flex items-center gap-x-2 text-white">
+                <Icon name={g.icon} class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span set:html={g.title} />
+              </div>
+              <p class="text-zinc-400 leading-relaxed" set:html={g.body} />
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
-    <div class="px-8 md:px-12 py-8 border-t border-white/10 flex flex-col sm:flex-row gap-4">
-      <a
-        href={ACQUISITION_MAILTO}
-        class="flex-1 inline-flex items-center justify-center gap-x-3 h-14 rounded-2xl bg-white text-zinc-950 font-semibold text-lg hover:bg-zinc-100 active:scale-[0.985] transition-all"
-      >
-        <span>Begin Acquisition</span>
-        <i class="fa-solid fa-arrow-right"></i>
-      </a>
-      <a
-        href={ACQUISITION_MAILTO}
-        class="flex-1 sm:flex-none inline-flex items-center justify-center gap-x-3 h-14 px-8 rounded-2xl border border-white/20 font-medium hover:bg-white/5 transition-all"
-      >
-        <i class="fa-solid fa-envelope"></i>
-        <span>Speak with Seller</span>
-      </a>
+    <div class="px-6 sm:px-8 md:px-12 py-7 sm:py-8 border-t border-white/10">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold text-white tracking-tight mb-2">Make an offer</h3>
+          <p class="text-zinc-400 text-[15px] leading-relaxed mb-5">
+            Tell us who you are and what you plan to build. Serious offers receive a response within
+            24 hours, including escrow instructions and transfer timeline.
+          </p>
+
+          <form id="offer-form" class="space-y-3" novalidate>
+            <div class="grid sm:grid-cols-2 gap-3">
+              <div>
+                <label for="of-name" class="block text-xs font-medium text-zinc-400 mb-1.5">Your name</label>
+                <input
+                  id="of-name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  placeholder="Jane Doe"
+                  class="w-full h-12 rounded-2xl bg-zinc-950 border border-white/15 px-4 text-[15px] text-white placeholder:text-zinc-600 focus:border-cyan-400/60 focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label for="of-email" class="block text-xs font-medium text-zinc-400 mb-1.5">Email</label>
+                <input
+                  id="of-email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="you@company.com"
+                  class="w-full h-12 rounded-2xl bg-zinc-950 border border-white/15 px-4 text-[15px] text-white placeholder:text-zinc-600 focus:border-cyan-400/60 focus:outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="of-use" class="block text-xs font-medium text-zinc-400 mb-1.5">Intended use</label>
+              <select
+                id="of-use"
+                name="use"
+                class="w-full h-12 rounded-2xl bg-zinc-950 border border-white/15 px-4 text-[15px] text-white focus:border-cyan-400/60 focus:outline-none transition-colors"
+              >
+                <option>AI art or design platform</option>
+                <option>Design agency or studio</option>
+                <option>Personal brand or portfolio</option>
+                <option>Startup / venture-backed product</option>
+                <option>Investment or resale</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="of-msg" class="block text-xs font-medium text-zinc-400 mb-1.5">
+                Offer or message <span class="text-zinc-600">(optional)</span>
+              </label>
+              <textarea
+                id="of-msg"
+                name="message"
+                rows="3"
+                placeholder="Offer amount, timeline, questions…"
+                class="w-full rounded-2xl bg-zinc-950 border border-white/15 px-4 py-3 text-[15px] text-white placeholder:text-zinc-600 focus:border-cyan-400/60 focus:outline-none transition-colors resize-y"></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full inline-flex items-center justify-center gap-x-3 h-14 rounded-2xl bg-white text-zinc-950 font-semibold text-base hover:bg-zinc-100 active:scale-[0.985] transition-all"
+            >
+              <span>Send my offer</span>
+              <Icon name="arrow-right" class="w-5 h-5" />
+            </button>
+            <p id="form-note" class="text-xs text-zinc-500 text-center leading-relaxed">
+              Opens your email app pre-filled &bull; or write directly to
+              <a href={ACQUISITION_MAILTO} class="text-cyan-400 hover:text-cyan-300 underline underline-offset-2 py-1.5">{SITE.email}</a>
+            </p>
+          </form>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <a
+            href={ACQUISITION_MAILTO}
+            class="flex-1 inline-flex items-center justify-center gap-x-3 min-h-[56px] px-6 rounded-2xl border border-white/20 font-medium hover:bg-white/5 transition-all text-zinc-100 text-center"
+          >
+            <Icon name="envelope" class="w-5 h-5" />
+            <span>Email the seller directly</span>
+          </a>
+          <div class="rounded-2xl border border-white/10 bg-zinc-950 p-5 sm:p-6">
+            <p class="text-xs uppercase tracking-[2px] text-zinc-500 font-semibold mb-3">Every purchase includes</p>
+            <ul class="space-y-3 text-[15px] text-zinc-300">
+              <li class="flex gap-3">
+                <Icon name="badge-check" class="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
+                <span>Free push transfer to any major registrar you choose</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="lock" class="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
+                <span>Funds held in licensed escrow until you confirm control</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="clock" class="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
+                <span>Response to every serious inquiry within 24 hours</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <p class="text-center text-xs text-zinc-500 mt-5 tracking-wide">Serious inquiries only. This is a high-value strategic asset.</p>
+  <p class="text-center text-xs text-zinc-500 mt-5 tracking-wide">
+    Serious inquiries only. This is a high-value strategic asset.
+  </p>
 </section>
+
+<script>
+  const form = document.getElementById('offer-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const use = String(data.get('use') ?? '').trim();
+    const message = String(data.get('message') ?? '').trim();
+
+    const note = document.getElementById('form-note');
+    if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (note) note.textContent = 'Please add your name and a valid email address.';
+      return;
+    }
+
+    const body = [
+      'Hello,',
+      '',
+      'I am interested in acquiring edesigr.com.',
+      '',
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Intended use: ${use}`,
+      `Offer / notes: ${message || '(not specified)'}`,
+      '',
+      'Thank you.',
+    ].join('\n');
+
+    const subject = `eDesigr.com acquisition offer — ${name}`;
+    window.location.href = `mailto:sales@desertrich.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (note) note.textContent = 'Opening your email app… If nothing happens, email sales@desertrich.com directly.';
+  });
+</script>

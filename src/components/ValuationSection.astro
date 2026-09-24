@@ -1,0 +1,129 @@
+---
+import { ACQUISITION_MAILTO } from '../config/site';
+import Icon from './Icon.astro';
+
+const factors = [
+  {
+    icon: 'tag',
+    tint: 'text-cyan-400',
+    wrap: 'bg-cyan-400/10',
+    title: 'Finite .com supply',
+    body: 'Every premium four-letter-style .com that is registered is gone for good. Unlike ad budget or software, a great domain is a one-time purchase that appreciates instead of depreciating.',
+  },
+  {
+    icon: 'search',
+    tint: 'text-purple-400',
+    wrap: 'bg-purple-400/10',
+    title: 'Exact semantic match',
+    body: 'edesigr reads instantly as "electronic designer" to an English-speaking audience. Exact-match spelling is what separates a brandable asset from a name people have to spell twice.',
+  },
+  {
+    icon: 'chart-line',
+    tint: 'text-emerald-400',
+    wrap: 'bg-emerald-400/10',
+    title: 'High-intent category',
+    body: 'AI art, generative design and creative tooling are among the fastest-growing software categories. Category-defining names in expanding markets are the ones that resell at a premium.',
+  },
+];
+
+const comps = [
+  { name: 'Voice.com', price: '$30,000,000', year: '2019' },
+  { name: 'Hotels.com', price: '$11,000,000', year: '1999' },
+  { name: 'Fund.com', price: '$9,999,995', year: '2009' },
+];
+---
+
+<section id="value" class="bg-zinc-900 border-y border-white/10 py-14 sm:py-16">
+  <div class="max-w-5xl mx-auto px-5 sm:px-6">
+    <div class="text-center mb-10 sm:mb-12">
+      <p class="inline-block px-4 py-1 rounded-2xl bg-white/5 text-xs font-semibold tracking-[2px] mb-3">HOW PREMIUM DOMAINS ARE VALUED</p>
+      <h2 class="font-display section-title text-white">
+        A domain priced like an asset,<br class="hidden sm:block" /> not an expense.
+      </h2>
+      <p class="mt-4 text-zinc-400 max-w-2xl mx-auto text-[15px] sm:text-base leading-relaxed">
+        Domain valuation is not guesswork. Buyers and brokers weigh the same three inputs every time —
+        here is how edesigr.com scores against them.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 sm:gap-5 mb-10 sm:mb-12">
+      {
+        factors.map((f) => (
+          <div class="bg-zinc-950 border border-white/10 rounded-3xl p-6 sm:p-7">
+            <span class={`w-11 h-11 rounded-2xl ${f.wrap} flex items-center justify-center mb-5`}>
+              <Icon name={f.icon} class={`w-5 h-5 ${f.tint}`} />
+            </span>
+            <h3 class="text-lg sm:text-xl font-semibold tracking-tight mb-2 text-white">{f.title}</h3>
+            <p class="text-zinc-400 text-[15px] leading-relaxed">{f.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="bg-zinc-950 border border-white/10 rounded-3xl p-6 sm:p-9">
+      <div class="flex items-center gap-x-2 mb-5 sm:mb-6">
+        <Icon name="chart-line" class="w-4 h-4 text-amber-400" />
+        <h3 class="text-xs font-bold tracking-[2px] text-amber-400">PUBLICLY REPORTED .COM SALES</h3>
+      </div>
+
+      <ul class="grid sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-7">
+        {
+          comps.map((c) => (
+            <li class="border border-white/10 rounded-2xl p-5 bg-white/[0.03]">
+              <div class="font-display text-xl sm:text-2xl text-white tracking-tight">{c.name}</div>
+              <div class="text-2xl sm:text-3xl font-semibold text-emerald-400 mt-1">{c.price}</div>
+              <div class="text-xs text-zinc-500 mt-1">Reported {c.year}</div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="text-zinc-400 text-[15px] leading-relaxed mb-5">
+        Against that backdrop, edesigr.com is positioned in the attainable range for a funded startup,
+        an agency rebrand, or an AI platform raising a round — a fraction of the cost of the category
+        leaders, with the same .com fundamentals.
+      </p>
+
+      <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 sm:items-center">
+        <a
+          href="https://en.wikipedia.org/wiki/List_of_most_expensive_domain_names"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-x-2 min-h-[44px] text-sm text-cyan-400 hover:text-cyan-300 transition-colors underline underline-offset-4 decoration-cyan-400/40"
+        >
+          <span>See the full list of record-breaking .com sales</span>
+          <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+        <span class="hidden sm:block text-zinc-700">•</span>
+        <a
+          href="https://www.dnjournal.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-x-2 min-h-[44px] text-sm text-cyan-400 hover:text-cyan-300 transition-colors underline underline-offset-4 decoration-cyan-400/40"
+        >
+          <span>Industry sales chart — DN Journal</span>
+          <Icon name="arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+      <a
+        href={ACQUISITION_MAILTO}
+        class="inline-flex items-center justify-center gap-x-3 px-7 py-4 text-base font-semibold rounded-3xl bg-white text-zinc-950 hover:bg-zinc-100 active:scale-[0.985] transition-all"
+      >
+        <span>Request the valuation memo</span>
+        <Icon name="arrow-right" class="w-5 h-5" />
+      </a>
+      <a
+        href="https://www.escrow.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-x-2 px-7 py-4 text-base font-medium rounded-3xl border border-white/20 hover:bg-white/5 transition-all text-zinc-200"
+      >
+        <Icon name="shield-halved" class="w-5 h-5 text-emerald-400" />
+        <span>How Escrow.com protects you</span>
+      </a>
+    </div>
+  </div>
+</section>

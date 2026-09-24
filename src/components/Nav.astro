@@ -1,42 +1,95 @@
 ---
 import { ACQUISITION_MAILTO } from '../config/site';
+import Icon from './Icon.astro';
+
+const links = [
+  { href: '#why', label: 'Why This Domain' },
+  { href: '#ai', label: 'AI + Creative' },
+  { href: '#for', label: 'Perfect For' },
+  { href: '#value', label: 'Value' },
+  { href: '#acquire', label: 'Acquire' },
+];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-zinc-950/80 backdrop-blur-lg" id="nav">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    <div class="flex items-center gap-x-3">
-      <a href="/" class="flex items-center gap-x-2">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 flex items-center justify-center">
-          <span class="text-zinc-950 font-black text-2xl tracking-tighter">eD</span>
-        </div>
-        <div>
-          <span class="font-display text-2xl font-semibold tracking-tighter">edesigr</span>
-          <span class="text-xs text-zinc-500 font-mono tracking-[3px] ml-0.5">.COM</span>
-        </div>
-      </a>
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-zinc-950/90 backdrop-blur-lg" id="nav">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-x-3">
+    <a href="/" class="flex items-center gap-x-2 shrink-0 min-h-[44px]" aria-label="edesigr.com home">
+      <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 flex items-center justify-center">
+        <span class="text-zinc-950 font-black text-lg sm:text-xl tracking-tighter">eD</span>
+      </span>
+      <span class="leading-none">
+        <span class="font-display text-lg sm:text-2xl font-semibold tracking-tighter text-white">edesigr</span><span class="text-[10px] sm:text-xs text-zinc-500 font-mono tracking-[3px] ml-0.5">.COM</span>
+      </span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-x-7 text-sm">
+      {links.map((l) => (
+        <a href={l.href} class="hover:text-white transition-colors text-zinc-400">{l.label}</a>
+      ))}
     </div>
 
-    <div class="hidden md:flex items-center gap-x-8 text-sm">
-      <a href="#why" class="hover:text-white transition-colors text-zinc-400">Why This Domain</a>
-      <a href="#ai" class="hover:text-white transition-colors text-zinc-400">AI + Creative</a>
-      <a href="#for" class="hover:text-white transition-colors text-zinc-400">Perfect For</a>
-      <a href="#acquire" class="hover:text-white transition-colors text-zinc-400">Acquire</a>
-    </div>
-
-    <div class="flex items-center gap-x-4">
+    <div class="flex items-center gap-x-2 sm:gap-x-3 shrink-0">
       <a
         href="#acquire"
-        class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-2xl bg-white text-zinc-950 hover:bg-zinc-100 transition-all active:scale-[0.985]"
+        class="inline-flex items-center justify-center px-3.5 sm:px-5 h-10 sm:h-11 text-sm font-semibold rounded-2xl bg-white text-zinc-950 hover:bg-zinc-100 transition-all active:scale-[0.985]"
       >
-        Acquire Now
+        <span class="sm:hidden">Acquire</span>
+        <span class="hidden sm:inline">Acquire Now</span>
       </a>
       <a
         href={ACQUISITION_MAILTO}
-        class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium rounded-2xl border border-white/20 hover:bg-white/5 transition-all"
+        aria-label="Email the seller"
+        class="hidden sm:inline-flex items-center justify-center h-11 px-4 text-sm font-medium rounded-2xl border border-white/20 hover:bg-white/5 transition-all text-zinc-200"
       >
-        <i class="fa-solid fa-envelope mr-2"></i>
-        <span class="hidden sm:inline">Inquire</span>
+        <Icon name="envelope" class="w-4 h-4" />
+        <span class="ml-2 hidden lg:inline">Inquire</span>
+      </a>
+      <button
+        type="button"
+        id="menu-btn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-2xl border border-white/20 hover:bg-white/5 transition-all text-zinc-200"
+      >
+        <Icon name="menu" class="w-5 h-5 menu-open" />
+        <Icon name="x" class="w-5 h-5 menu-close hidden" />
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 bg-zinc-950 px-4 py-3">
+    <div class="flex flex-col">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class="py-3 px-2 text-[15px] text-zinc-300 hover:text-white border-b border-white/5 last:border-0 transition-colors"
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href={ACQUISITION_MAILTO}
+        class="mt-3 py-3 px-4 text-center text-[15px] font-semibold rounded-2xl border border-white/20 text-white hover:bg-white/5 transition-all"
+      >
+        Email the seller
       </a>
     </div>
   </div>
 </nav>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('hidden', !open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      btn.querySelector('.menu-open')?.classList.toggle('hidden', open);
+      btn.querySelector('.menu-close')?.classList.toggle('hidden', !open);
+    };
+    btn.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  }
+</script>

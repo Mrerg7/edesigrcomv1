@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE, OG_IMAGE, ACQUISITION_MAILTO } from '../config/site';
+import { SITE, OG_IMAGE, ACQUISITION_MAILTO, FAQS, PRICE } from '../config/site';
 
 interface Props {
   title?: string;
@@ -16,6 +16,7 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, SITE.url);
 const publishedDate = '2026-06-08';
+const modifiedDate = '2026-09-24';
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -27,6 +28,7 @@ const structuredData = {
       name: SITE.name,
       description,
       inLanguage: 'en-US',
+      publisher: { '@id': `${SITE.url}/#organization` },
     },
     {
       '@type': 'WebPage',
@@ -36,16 +38,18 @@ const structuredData = {
       description,
       isPartOf: { '@id': `${SITE.url}/#website` },
       datePublished: publishedDate,
-      dateModified: publishedDate,
+      dateModified: modifiedDate,
       inLanguage: 'en-US',
+      primaryImageOfPage: ogImage,
     },
     {
       '@type': 'Product',
       '@id': `${SITE.url}/#product`,
       name: 'eDesigr.com Premium Domain Name',
       description:
-        'The definitive premium domain for electronic designers, generative artists, AI art platforms, and creative studios. Available for acquisition.',
+        'Premium four-part .com domain name eDesigr.com, available for acquisition. Natural spelling shorthand for "electronic designer", positioned for AI art platforms, design studios and creative technology brands.',
       url: SITE.url,
+      image: ogImage,
       category: 'Premium Domain Name',
       brand: {
         '@type': 'Brand',
@@ -53,66 +57,29 @@ const structuredData = {
       },
       offers: {
         '@type': 'Offer',
-        url: ACQUISITION_MAILTO,
-        price: '195000',
+        url: `${SITE.url}/#acquire`,
+        price: PRICE.replace(',', ''),
         priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
         seller: {
           '@type': 'Organization',
           name: SITE.name,
           email: SITE.email,
         },
-        shippingDetails: {
-          '@type': 'OfferShippingDetails',
-          shippingRate: {
-            '@type': 'MonetaryAmount',
-            value: '0.00',
-            currency: 'USD',
-          },
-          deliveryTime: {
-            '@type': 'ShippingDeliveryTime',
-            handlingTime: {
-              '@type': 'QuantitativeValue',
-              minValue: 0,
-              maxValue: 1,
-              unitCode: 'DAY',
-            },
-            transitTime: {
-              '@type': 'QuantitativeValue',
-              minValue: 0,
-              maxValue: 0,
-              unitCode: 'DAY',
-            },
-          },
-          shippingDestination: {
-            '@type': 'DefinedRegion',
-            addressCountry: 'US',
-          },
-        },
-        hasMerchantReturnPolicy: {
-          '@type': 'MerchantReturnPolicy',
-          returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          returnMethod: 'https://schema.org/ReturnByMail',
-          returnFees: 'https://schema.org/FreeReturn',
-          applicableCountry: 'US',
-          merchantReturnDays: 0,
-        },
       },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '5',
-        bestRating: '5',
-        ratingCount: '1',
-      },
-      review: {
-        '@type': 'Review',
-        author: {
-          '@type': 'Organization',
-          name: SITE.name,
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${SITE.url}/#faq`,
+      mainEntity: FAQS.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: f.a,
         },
-        reviewBody:
-          'The definitive .com domain at the forefront of electronic design and generative AI — unmatched professional brand equity for a creative venture.',
-      },
+      })),
     },
     {
       '@type': 'Organization',
@@ -120,6 +87,12 @@ const structuredData = {
       name: SITE.name,
       url: SITE.url,
       email: SITE.email,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: SITE.email,
+        availableLanguage: 'en',
+      },
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Phoenix',
@@ -144,8 +117,18 @@ const structuredData = {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
     <link rel="canonical" href={canonicalURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
@@ -166,7 +149,6 @@ const structuredData = {
     <meta name="twitter:image:alt" content="eDesigr.com — Premium Domain for Electronic Designers & AI Creatives" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>

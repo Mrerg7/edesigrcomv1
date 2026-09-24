@@ -1,68 +1,88 @@
 ---
-import { ACQUISITION_MAILTO, SITE } from '../config/site';
+import { ACQUISITION_MAILTO, SITE, PRICE } from '../config/site';
+import Icon from './Icon.astro';
+
+const nav = [
+  { href: '#why', label: 'Why this domain' },
+  { href: '#ai', label: 'AI + creative' },
+  { href: '#for', label: 'Who it is for' },
+  { href: '#value', label: 'Valuation' },
+  { href: '#acquire', label: 'Acquire' },
+  { href: '#faq', label: 'FAQ' },
+];
 ---
 
 <footer class="border-t border-white/10 bg-zinc-950">
-  <div class="max-w-5xl mx-auto px-6 py-16">
-    <!-- Sophisticated Domain Acquisition CTA -->
-    <div class="relative overflow-hidden rounded-3xl border border-cyan-500/25 bg-gradient-to-br from-zinc-900 via-black to-purple-950/40 p-8 sm:p-12 mb-12">
-      <div
+  <div class="max-w-5xl mx-auto px-5 sm:px-6 py-12 sm:py-16">
+    <div class="relative overflow-hidden rounded-3xl border border-cyan-500/25 bg-gradient-to-br from-zinc-900 via-black to-purple-950/40 p-6 sm:p-10 mb-10 sm:mb-12">
+      <span
         class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none"
         aria-hidden="true"
-      ></div>
-      <div
+      ></span>
+      <span
         class="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-purple-500/10 blur-3xl pointer-events-none"
         aria-hidden="true"
-      ></div>
+      ></span>
 
-      <div class="relative z-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+      <div class="relative z-10 grid lg:grid-cols-[1.2fr_0.8fr] gap-8 sm:gap-10 items-center">
         <div>
-          <p class="text-xs uppercase tracking-[3px] text-cyan-400 font-extrabold mb-4">Domain Available for Acquisition</p>
-          <h2 class="font-display text-3xl sm:text-4xl tracking-tight mb-4">
+          <p class="text-[11px] uppercase tracking-[3px] text-cyan-400 font-extrabold mb-3 sm:mb-4">
+            Domain available for acquisition
+          </p>
+          <h2 class="font-display text-2xl sm:text-4xl tracking-tight mb-3 sm:mb-4 text-white text-balance">
             eDesigr.com — A Category-Defining Digital Asset
           </h2>
-          <p class="text-zinc-400 max-w-xl leading-relaxed">
+          <p class="text-zinc-400 max-w-xl leading-relaxed text-[15px] sm:text-base">
             Positioned at the exact intersection of electronic design and generative AI creativity,
-            this domain is a rare strategic asset. Serious buyers may inquire for pricing, transfer
-            logistics, and escrow options.
+            this domain is a rare strategic asset listed at ${PRICE} USD. Serious buyers may inquire for
+            transfer logistics, escrow options, or an installment structure.
           </p>
         </div>
 
-        <div class="rounded-2xl p-6 sm:p-8 border border-white/10" style="background: rgba(10, 10, 10, 0.88); backdrop-filter: blur(22px);">
-          <p class="text-xs uppercase tracking-[2px] text-zinc-500 font-semibold mb-2">Acquisition Contact</p>
+        <div class="rounded-2xl p-5 sm:p-7 border border-white/10 bg-zinc-950/90 backdrop-blur-sm">
+          <p class="text-[11px] uppercase tracking-[2px] text-zinc-500 font-semibold mb-2">Acquisition contact</p>
           <a
             href={ACQUISITION_MAILTO}
-            class="block text-2xl sm:text-3xl font-display text-white hover:text-cyan-400 transition-colors break-all"
+            class="block text-xl sm:text-3xl font-display text-white hover:text-cyan-400 transition-colors break-all"
           >
             {SITE.email}
           </a>
           <a
             href={ACQUISITION_MAILTO}
-            class="mt-6 inline-flex w-full items-center justify-center gap-x-3 px-6 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-extrabold rounded-2xl hover:brightness-110 transition-all"
+            class="mt-5 inline-flex w-full items-center justify-center gap-x-3 px-6 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-extrabold rounded-2xl hover:brightness-110 transition-all"
           >
-            <span>Inquire About Acquisition</span>
-            <i class="fa-solid fa-arrow-right"></i>
+            <span>Inquire about acquisition</span>
+            <Icon name="arrow-right" class="w-4 h-4" />
           </a>
-          <p class="mt-4 text-[11px] text-zinc-500 text-center tracking-wide">
-            Confidential inquiries • Response within 24 hours
+          <p class="mt-3 text-[11px] text-zinc-500 text-center tracking-wide">
+            Confidential inquiries &bull; Response within 24 hours
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Disclaimer -->
-    <p class="text-xs text-zinc-500 leading-relaxed max-w-4xl mb-10">
+    <nav aria-label="Page sections" class="mb-8 sm:mb-10">
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-zinc-500">
+        {
+          nav.map((n) => (
+            <li>
+              <a href={n.href} class="hover:text-zinc-300 transition-colors inline-flex items-center min-h-[44px] px-1">{n.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <p class="text-xs text-zinc-500 leading-relaxed max-w-4xl mb-8 sm:mb-10">
       This website is for demonstration and informational purposes only. It does not constitute an offer of services,
       a commitment to deploy, or a guarantee of outcomes. All statistics, projections, and references to specific
       technologies are based on publicly available information as of June 8, 2026 and are subject to change.
+      Reported domain sale figures are publicly reported amounts and are used only for category context.
     </p>
 
-    <!-- Bottom bar -->
-    <div class="pt-8 border-t border-white/10 text-xs text-zinc-500 flex flex-col md:flex-row gap-y-4 items-center justify-between">
-      <div>&copy; 2026 eDesigr.com. All rights reserved.</div>
-      <div class="flex items-center gap-x-5">
-        <span>Premium domain listing by owner</span>
-      </div>
+    <div class="pt-6 sm:pt-8 border-t border-white/10 text-xs text-zinc-500 flex flex-col md:flex-row gap-y-3 items-center justify-between">
+      <p>&copy; 2026 eDesigr.com. All rights reserved.</p>
+      <p>Premium domain listing by owner &bull; Escrow-protected transfers</p>
     </div>
   </div>
 </footer>
